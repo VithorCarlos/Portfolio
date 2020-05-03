@@ -1,0 +1,32 @@
+{
+    "name": "vithorcarlos/infoeds",
+    "description": "Listagem erros ocorridos com clientes",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [{
+        "name": "Vithor Carlos S. de Oliveira",
+        "email": "vithor.carlos99@hotmail.com",
+        "role": "Developer",
+        "homepage": "https://www.youtube.com/c/TutoMaster"
+    }],
+    "autoload": {
+        "psr-4": {
+            "Source\\": "Source"
+        },
+        "files": [
+            "Source/Config/Config.php",
+            "Source/Helpers/Helpers.php"
+        ]
+    },
+    "require": {
+        "ext-json": "*",
+        "phpmailer/phpmailer": "6.1.*",
+        "coffeecode/optimizer": "2.0.0",
+        "league/plates": "v4.0.0-alpha",
+        "league/oauth2-facebook": "2.0.*",
+        "league/oauth2-google": "3.0.*",
+        "league/oauth2-linkedin": "5.1.*",
+        "twig/twig": "3.0.3",
+        "slim/slim": "2.*"
+    }
+}
