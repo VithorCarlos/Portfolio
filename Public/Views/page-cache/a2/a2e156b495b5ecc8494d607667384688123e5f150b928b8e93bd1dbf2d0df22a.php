@@ -58,12 +58,15 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     <img src=\"/Public/Views/images/img-01.png\" alt=\"IMG\">
                 </div>
 
-                <form class=\"login100-form validate-form\" action=\"/site/list\">
+                <form class=\"login100-form validate-form\" action=\"/\" method=\"post\">
                     <span class=\"login100-form-title\">
                         LOGIN DE FUNCIONÁRIOS
                     </span>
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
+                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"";
+        // line 27
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["users"] ?? null), "First_name", [], "any", false, false, false, 27), "html", null, true);
+        echo "\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-user-shield\"></i>
@@ -77,7 +80,19 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                             <i class=\"fas fa-unlock-alt\"></i>
                         </span>
                     </div>
-
+                    ";
+        // line 41
+        if ((isset($context["failed_login"]) || array_key_exists("failed_login", $context))) {
+            // line 42
+            echo "                    <div id=\"html_element\" type=\"\"></div>
+                    <p>";
+            // line 43
+            echo twig_escape_filter($this->env, ($context["error_captcha"] ?? null), "html", null, true);
+            echo "</p>
+                    ";
+        }
+        // line 45
+        echo "
                     <div class=\"container-login100-form-btn\">
                         <button class=\"login100-form-btn\">
                             Entrar
@@ -104,9 +119,9 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
         </div>
     </div>
     ";
-        // line 67
-        $this->loadTemplate("footer/footer.html", "home.html", 67)->display($context);
-        // line 68
+        // line 71
+        $this->loadTemplate("footer/footer.html", "home.html", 71)->display($context);
+        // line 72
         echo "</body>
 
 </html>";
@@ -124,7 +139,7 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
 
     public function getDebugInfo()
     {
-        return array (  110 => 68,  108 => 67,  46 => 7,  44 => 6,  37 => 1,);
+        return array (  125 => 72,  123 => 71,  95 => 45,  90 => 43,  87 => 42,  85 => 41,  68 => 27,  46 => 7,  44 => 6,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -150,12 +165,12 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     <img src=\"/Public/Views/images/img-01.png\" alt=\"IMG\">
                 </div>
 
-                <form class=\"login100-form validate-form\" action=\"/site/list\">
+                <form class=\"login100-form validate-form\" action=\"/\" method=\"post\">
                     <span class=\"login100-form-title\">
                         LOGIN DE FUNCIONÁRIOS
                     </span>
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
+                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"{{users.First_name}}\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-user-shield\"></i>
@@ -169,6 +184,10 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                             <i class=\"fas fa-unlock-alt\"></i>
                         </span>
                     </div>
+                    {% if failed_login is defined %}
+                    <div id=\"html_element\" type=\"\"></div>
+                    <p>{{error_captcha}}</p>
+                    {% endif %}
 
                     <div class=\"container-login100-form-btn\">
                         <button class=\"login100-form-btn\">

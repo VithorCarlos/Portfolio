@@ -29,10 +29,10 @@ define("CAPTCHA", [
 define("DATABASE", [
     "driver" => "mysql",
     "host" => "localhost",
-    "port" => "3306",
+    "port" => 3306,
     "dbname" => "db_infoeds",
     "username" => "root",
-    "passwd" => "",
+    "passwd" => ""
 ]);
 
 /**

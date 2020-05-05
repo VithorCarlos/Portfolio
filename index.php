@@ -12,6 +12,9 @@ $app = new Slim(['debug' => true]);
 /** Login Router*/
 $app->get('/', 'Source\App\Controllers\Web:login');
 
+/** Set Login Router*/
+$app->post('/', 'Source\App\Controllers\Web:setLogin');
+
 /** Logout site */
 $app->get('/logout', 'Source\App\Controllers\Web:logout');
 

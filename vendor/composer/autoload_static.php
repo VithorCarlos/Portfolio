@@ -15,14 +15,6 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
-        'e471bf351add62873bc0289ccd6a937f' => __DIR__ . '/..' . '/league/plates/src/Template/match.php',
-        '152c98af9456eeb8f53697d6a7dfd689' => __DIR__ . '/..' . '/league/plates/src/Extension/Data/data.php',
-        'e20239a76b73b9912f51f0005956d1db' => __DIR__ . '/..' . '/league/plates/src/Extension/Path/path.php',
-        'd513f8e004e152493580ca1917e308ba' => __DIR__ . '/..' . '/league/plates/src/Extension/RenderContext/func.php',
-        '27980683f1626a3fd1405d27b171c0fe' => __DIR__ . '/..' . '/league/plates/src/Extension/RenderContext/render-context.php',
-        'bdc465a053da7f7ddb072631f6d41d45' => __DIR__ . '/..' . '/league/plates/src/Extension/LayoutSections/layout-sections.php',
-        'afa76803f24616d7599be3b7b0846adc' => __DIR__ . '/..' . '/league/plates/src/Extension/Folders/folders.php',
-        '16c5be35e32c6cf916d875518b909210' => __DIR__ . '/..' . '/league/plates/src/Util/util.php',
         '6ef447e37259fa8e1884a9e56f68666c' => __DIR__ . '/../..' . '/Source/Config/Config.php',
         '7337d8effe5db9490a58a35c77378bb7' => __DIR__ . '/../..' . '/Source/Helpers/Helpers.php',
     );
@@ -38,6 +30,7 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Svg\\' => 4,
             'Source\\' => 7,
         ),
         'P' => 
@@ -47,7 +40,6 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
         ),
         'L' => 
         array (
-            'League\\Plates\\' => 14,
             'League\\OAuth2\\Client\\' => 21,
         ),
         'G' => 
@@ -56,9 +48,13 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
         ),
-        'C' => 
+        'F' => 
         array (
-            'CoffeeCode\\Optimizer\\' => 21,
+            'FontLib\\' => 8,
+        ),
+        'D' => 
+        array (
+            'Dompdf\\' => 7,
         ),
     );
 
@@ -83,6 +79,10 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
         'Source\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Source',
@@ -94,10 +94,6 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
-        ),
-        'League\\Plates\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/league/plates/src',
         ),
         'League\\OAuth2\\Client\\' => 
         array (
@@ -118,9 +114,13 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'CoffeeCode\\Optimizer\\' => 
+        'FontLib\\' => 
         array (
-            0 => __DIR__ . '/..' . '/coffeecode/optimizer/src',
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
     );
 
@@ -131,7 +131,20 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
             array (
                 0 => __DIR__ . '/..' . '/slim/slim',
             ),
+            'Sabberworm\\CSS' => 
+            array (
+                0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/lib',
+            ),
         ),
+    );
+
+    public static $classMap = array (
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
+        'HTML5_Data' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Data.php',
+        'HTML5_InputStream' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/InputStream.php',
+        'HTML5_Parser' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Parser.php',
+        'HTML5_Tokenizer' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/Tokenizer.php',
+        'HTML5_TreeBuilder' => __DIR__ . '/..' . '/dompdf/dompdf/lib/html5lib/TreeBuilder.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -140,6 +153,7 @@ class ComposerStaticInit7b312147999e2d275ceb5545cc893b85
             $loader->prefixLengthsPsr4 = ComposerStaticInit7b312147999e2d275ceb5545cc893b85::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit7b312147999e2d275ceb5545cc893b85::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit7b312147999e2d275ceb5545cc893b85::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit7b312147999e2d275ceb5545cc893b85::$classMap;
 
         }, null, ClassLoader::class);
     }

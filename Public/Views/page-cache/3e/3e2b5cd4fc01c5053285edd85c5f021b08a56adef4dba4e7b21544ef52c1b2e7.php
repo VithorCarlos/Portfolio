@@ -66,9 +66,28 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     <span class=\"login100-form-title\">
                         CADASTRO DE FUNCIONÁRIOS
                     </span>
-
-                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"nome_funcionario\" placeholder=\"NOME COMPLETO\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
+                    <!---->
+                    ";
+        // line 31
+        if (( !(null === ($context["error_register"] ?? null)) && (isset($context["error_register"]) || array_key_exists("error_register", $context)))) {
+            // line 32
+            echo "                    <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">
+                        ";
+            // line 33
+            echo twig_escape_filter($this->env, ($context["error_register"] ?? null), "html", null, true);
+            echo "
+                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                          <span aria-hidden=\"true\">&times;</span>
+                        </button>
+                    </div>
+                    ";
+        }
+        // line 39
+        echo "                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
+                        <input class=\"input100\" type=\"text\" name=\"first_name\" placeholder=\"NOME\" value=\"";
+        // line 40
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "First_name", [], "any", false, false, false, 40), "html", null, true);
+        echo "\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-id-badge\"></i>
@@ -76,7 +95,21 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" placeholder=\"USUÁRIO\" maxlength=\"12\">
+                        <input class=\"input100\" type=\"text\" name=\"last_name\" placeholder=\"SOBRENOME\" value=\"";
+        // line 48
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Last_name", [], "any", false, false, false, 48), "html", null, true);
+        echo "\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
+                        <span class=\"focus-input100\"></span>
+                        <span class=\"symbol-input100\">
+                            <i class=\"fas fa-id-badge\"></i>
+                        </span>
+                    </div>
+
+                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
+                        <input class=\"input100\" type=\"text\" name=\"login\" value=\"";
+        // line 56
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Login", [], "any", false, false, false, 56), "html", null, true);
+        echo "\" placeholder=\"USUÁRIO\" maxlength=\"12\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-user-lock\"></i>
@@ -84,7 +117,10 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"email\" name=\"email\" placeholder=\"EMAIL\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\$\" maxlength=\"50\">
+                        <input class=\"input100\" type=\"email\" name=\"email\" placeholder=\"EMAIL\" value=\"";
+        // line 64
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Email", [], "any", false, false, false, 64), "html", null, true);
+        echo "\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\$\" maxlength=\"70\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>
@@ -92,7 +128,18 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" id=\"senha\" name=\"senha\" placeholder=\"SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"text\" name=\"cpf\" placeholder=\"CPF\" value=\"";
+        // line 72
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Cpf", [], "any", false, false, false, 72), "html", null, true);
+        echo "\" onkeypress=\"mask(this, '###.###.###-##')\" onkeyup=\"onlyNumbers(this);\" maxlength=\"14\">
+                        <span class=\"focus-input100\"></span>
+                        <span class=\"symbol-input100\">
+                            <i class=\"fas fa-shield-alt\"></i>
+                        </span>
+                    </div>
+
+                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
+                        <input class=\"input100\" type=\"password\" id=\"senha\" name=\"passwd\" placeholder=\"SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-lock\" aria-hidden=\"true\"></i>
@@ -100,7 +147,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" id=\"senha2\" name=\"senha2\" placeholder=\"CONFIRMAR SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"password\" id=\"senha2\" name=\"passwd2\" placeholder=\"CONFIRMAR SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-lock\" aria-hidden=\"true\"></i>
@@ -110,11 +157,11 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
 
                     <div id=\"html_element\"></div>
                     <p>";
-        // line 73
+        // line 97
         echo twig_escape_filter($this->env, ($context["error_captcha"] ?? null), "html", null, true);
         echo "</p>
                     <div class=\"container-login100-form-btn\">
-                        <button type=\"submit\" name=\"registrar_usuarios\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
+                        <button type=\"submit\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
 
                         <button class=\"login200-form-btn\" type=\"reset\">Limpar</button>
                     </div>
@@ -123,9 +170,9 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
         </div>
     </div>
     ";
-        // line 83
-        $this->loadTemplate("footer/footer.html", "register.html", 83)->display($context);
-        // line 84
+        // line 107
+        $this->loadTemplate("footer/footer.html", "register.html", 107)->display($context);
+        // line 108
         echo "
 </body>
 
@@ -144,7 +191,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
 
     public function getDebugInfo()
     {
-        return array (  129 => 84,  127 => 83,  114 => 73,  46 => 7,  44 => 6,  37 => 1,);
+        return array (  176 => 108,  174 => 107,  161 => 97,  133 => 72,  122 => 64,  111 => 56,  100 => 48,  89 => 40,  86 => 39,  77 => 33,  74 => 32,  72 => 31,  46 => 7,  44 => 6,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -178,9 +225,17 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     <span class=\"login100-form-title\">
                         CADASTRO DE FUNCIONÁRIOS
                     </span>
-
+                    <!---->
+                    {% if error_register is not null and error_register is defined %}
+                    <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">
+                        {{error_register}}
+                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+                          <span aria-hidden=\"true\">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"nome_funcionario\" placeholder=\"NOME COMPLETO\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
+                        <input class=\"input100\" type=\"text\" name=\"first_name\" placeholder=\"NOME\" value=\"{{data_user.First_name}}\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-id-badge\"></i>
@@ -188,7 +243,15 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" placeholder=\"USUÁRIO\" maxlength=\"12\">
+                        <input class=\"input100\" type=\"text\" name=\"last_name\" placeholder=\"SOBRENOME\" value=\"{{data_user.Last_name}}\" pattern=\"[a-zA-Z\\s]+\$\" onkeyup=\"this.value=this.value.toUpperCase();\" minlength=\"12\" maxlength=\"80\">
+                        <span class=\"focus-input100\"></span>
+                        <span class=\"symbol-input100\">
+                            <i class=\"fas fa-id-badge\"></i>
+                        </span>
+                    </div>
+
+                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
+                        <input class=\"input100\" type=\"text\" name=\"login\" value=\"{{data_user.Login}}\" placeholder=\"USUÁRIO\" maxlength=\"12\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-user-lock\"></i>
@@ -196,7 +259,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"email\" name=\"email\" placeholder=\"EMAIL\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\$\" maxlength=\"50\">
+                        <input class=\"input100\" type=\"email\" name=\"email\" placeholder=\"EMAIL\" value=\"{{data_user.Email}}\" pattern=\"[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}\$\" maxlength=\"70\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-envelope\" aria-hidden=\"true\"></i>
@@ -204,7 +267,15 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" id=\"senha\" name=\"senha\" placeholder=\"SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"text\" name=\"cpf\" placeholder=\"CPF\" value=\"{{data_user.Cpf}}\" onkeypress=\"mask(this, '###.###.###-##')\" onkeyup=\"onlyNumbers(this);\" maxlength=\"14\">
+                        <span class=\"focus-input100\"></span>
+                        <span class=\"symbol-input100\">
+                            <i class=\"fas fa-shield-alt\"></i>
+                        </span>
+                    </div>
+
+                    <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
+                        <input class=\"input100\" type=\"password\" id=\"senha\" name=\"passwd\" placeholder=\"SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-lock\" aria-hidden=\"true\"></i>
@@ -212,7 +283,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" id=\"senha2\" name=\"senha2\" placeholder=\"CONFIRMAR SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"password\" id=\"senha2\" name=\"passwd2\" placeholder=\"CONFIRMAR SENHA\" pattern=\".{8,}\" title=\"8 a 15 Caracteres.\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fa fa-lock\" aria-hidden=\"true\"></i>
@@ -223,7 +294,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     <div id=\"html_element\"></div>
                     <p>{{error_captcha}}</p>
                     <div class=\"container-login100-form-btn\">
-                        <button type=\"submit\" name=\"registrar_usuarios\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
+                        <button type=\"submit\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
 
                         <button class=\"login200-form-btn\" type=\"reset\">Limpar</button>
                     </div>

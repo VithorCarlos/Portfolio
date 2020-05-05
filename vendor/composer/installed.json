@@ -1,54 +1,71 @@
 [
     {
-        "name": "coffeecode/optimizer",
-        "version": "2.0.0",
-        "version_normalized": "2.0.0.0",
+        "name": "dompdf/dompdf",
+        "version": "v0.8.5",
+        "version_normalized": "0.8.5.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/robsonvleite/optimizer.git",
-            "reference": "20f70bb706413e1997ffed501fd9d7f48a60bceb"
+            "url": "https://github.com/dompdf/dompdf.git",
+            "reference": "6782abfc090b132134cd6cea0ec6d76f0fce2c56"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/robsonvleite/optimizer/zipball/20f70bb706413e1997ffed501fd9d7f48a60bceb",
-            "reference": "20f70bb706413e1997ffed501fd9d7f48a60bceb",
+            "url": "https://api.github.com/repos/dompdf/dompdf/zipball/6782abfc090b132134cd6cea0ec6d76f0fce2c56",
+            "reference": "6782abfc090b132134cd6cea0ec6d76f0fce2c56",
             "shasum": ""
         },
         "require": {
-            "ext-simplexml": "*",
-            "php": "^7.2"
+            "ext-dom": "*",
+            "ext-mbstring": "*",
+            "phenx/php-font-lib": "^0.5.1",
+            "phenx/php-svg-lib": "^0.3.3",
+            "php": "^7.1"
         },
-        "time": "2019-08-29T14:26:45+00:00",
+        "require-dev": {
+            "phpunit/phpunit": "^7.5",
+            "squizlabs/php_codesniffer": "^3.5"
+        },
+        "suggest": {
+            "ext-gd": "Needed to process images",
+            "ext-gmagick": "Improves image processing performance",
+            "ext-imagick": "Improves image processing performance"
+        },
+        "time": "2020-02-20T03:52:51+00:00",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-develop": "0.7-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "CoffeeCode\\Optimizer\\": "src"
-            }
+                "Dompdf\\": "src/"
+            },
+            "classmap": [
+                "lib/"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "LGPL-2.1"
         ],
         "authors": [
             {
-                "name": "Robson V. Leite",
-                "email": "cursos@upinside.com.br",
-                "role": "Developer"
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            },
+            {
+                "name": "Brian Sweeney",
+                "email": "eclecticgeek@gmail.com"
+            },
+            {
+                "name": "Gabriel Bull",
+                "email": "me@gabrielbull.com"
             }
         ],
-        "description": "Optimizer makes it easy to bookmark your site tags, open graph and twitter card",
-        "homepage": "http://www.upinside.com.br",
-        "keywords": [
-            "Coffeecode",
-            "Facebook Tags",
-            "SMO",
-            "meta tags",
-            "open graph",
-            "seo",
-            "twitter card",
-            "upinside"
-        ]
+        "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
+        "homepage": "https://github.com/dompdf/dompdf"
     },
     {
         "name": "guzzlehttp/guzzle",
@@ -479,80 +496,6 @@
         ]
     },
     {
-        "name": "league/plates",
-        "version": "v4.0.0-alpha",
-        "version_normalized": "4.0.0.0-alpha",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/thephpleague/plates.git",
-            "reference": "f53f4c1fa4bf307d0f3858a348172ff4faf7669a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/plates/zipball/f53f4c1fa4bf307d0f3858a348172ff4faf7669a",
-            "reference": "f53f4c1fa4bf307d0f3858a348172ff4faf7669a",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.0"
-        },
-        "require-dev": {
-            "eloquent/phony-peridot": "^2.0",
-            "peridot-php/leo": "^1.6",
-            "peridot-php/peridot": "^1.19",
-            "peridot-php/peridot-code-coverage-reporters": "^3.0",
-            "squizlabs/php_codesniffer": "~1.5"
-        },
-        "time": "2018-01-31T07:20:23+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "League\\Plates\\": "src"
-            },
-            "files": [
-                "src/Template/match.php",
-                "src/Extension/Data/data.php",
-                "src/Extension/Path/path.php",
-                "src/Extension/RenderContext/func.php",
-                "src/Extension/RenderContext/render-context.php",
-                "src/Extension/LayoutSections/layout-sections.php",
-                "src/Extension/Folders/folders.php",
-                "src/Util/util.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jonathan Reinink",
-                "email": "jonathan@reinink.ca",
-                "role": "Developer"
-            },
-            {
-                "name": "RJ Garcia",
-                "email": "rj@bighead.net",
-                "role": "Developer"
-            }
-        ],
-        "description": "Plates, the native PHP template system that's fast, easy to use and easy to extend.",
-        "homepage": "http://platesphp.com",
-        "keywords": [
-            "league",
-            "package",
-            "templates",
-            "templating",
-            "views"
-        ]
-    },
-    {
         "name": "paragonie/random_compat",
         "version": "v9.99.99.x-dev",
         "version_normalized": "9.99.99.9999999-dev",
@@ -595,6 +538,92 @@
             "pseudorandom",
             "random"
         ]
+    },
+    {
+        "name": "phenx/php-font-lib",
+        "version": "0.5.2",
+        "version_normalized": "0.5.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PhenX/php-font-lib.git",
+            "reference": "ca6ad461f032145fff5971b5985e5af9e7fa88d8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/ca6ad461f032145fff5971b5985e5af9e7fa88d8",
+            "reference": "ca6ad461f032145fff5971b5985e5af9e7fa88d8",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^4.8.35 || ^5 || ^6 || ^7"
+        },
+        "time": "2020-03-08T15:31:32+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "FontLib\\": "src/FontLib"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            }
+        ],
+        "description": "A library to read, parse, export and make subsets of different types of font files.",
+        "homepage": "https://github.com/PhenX/php-font-lib"
+    },
+    {
+        "name": "phenx/php-svg-lib",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/PhenX/php-svg-lib.git",
+            "reference": "16fd4d717be18d8a604f2d0c3045b35aa2f6b0a5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/16fd4d717be18d8a604f2d0c3045b35aa2f6b0a5",
+            "reference": "16fd4d717be18d8a604f2d0c3045b35aa2f6b0a5",
+            "shasum": ""
+        },
+        "require": {
+            "sabberworm/php-css-parser": "^8.3"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^5.5|^6.5"
+        },
+        "time": "2020-02-09T18:50:22+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "0.3-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Svg\\": "src/Svg"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL-3.0"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Ménager",
+                "email": "fabien.menager@gmail.com"
+            }
+        ],
+        "description": "A library to read, parse and export to PDF SVG files.",
+        "homepage": "https://github.com/PhenX/php-svg-lib"
     },
     {
         "name": "phpmailer/phpmailer",
@@ -767,6 +796,53 @@
             }
         ],
         "description": "A polyfill for getallheaders."
+    },
+    {
+        "name": "sabberworm/php-css-parser",
+        "version": "8.3.0",
+        "version_normalized": "8.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
+            "reference": "91bcc3e3fdb7386c9a2e0e0aa09ca75cc43f121f"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/91bcc3e3fdb7386c9a2e0e0aa09ca75cc43f121f",
+            "reference": "91bcc3e3fdb7386c9a2e0e0aa09ca75cc43f121f",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "require-dev": {
+            "codacy/coverage": "^1.4",
+            "phpunit/phpunit": "~4.8"
+        },
+        "time": "2019-02-22T07:42:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Sabberworm\\CSS": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Raphael Schweikert"
+            }
+        ],
+        "description": "Parser for CSS Files written in PHP",
+        "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
+        "keywords": [
+            "css",
+            "parser",
+            "stylesheet"
+        ]
     },
     {
         "name": "slim/slim",

@@ -46,6 +46,8 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
 <script src=\"/Resources/tilt/tilt.jquery.min.js\"></script>
 <script src=\"/Resources/js/validarcpf.js\"></script>
 <script src=\"/Public/Views/assets/js/main.js\"></script>
+<script src=\"/Public/Views/assets/js/onlyNumbers.js\"></script>
+<script src=\"/Public/Views/assets/js/mask.js\"></script>
 <script>
     \$('.js-tilt').tilt({
         scale: 1.1
@@ -80,6 +82,8 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
 <script src=\"/Resources/tilt/tilt.jquery.min.js\"></script>
 <script src=\"/Resources/js/validarcpf.js\"></script>
 <script src=\"/Public/Views/assets/js/main.js\"></script>
+<script src=\"/Public/Views/assets/js/onlyNumbers.js\"></script>
+<script src=\"/Public/Views/assets/js/mask.js\"></script>
 <script>
     \$('.js-tilt').tilt({
         scale: 1.1
