@@ -18,23 +18,34 @@ class Web
     public function login()
     {
         if (isset($_SESSION[User::SAVE_DATA])) $_SESSION[User::SAVE_DATA] = NULL;
+
         $error = new Error;
         $page = new Page();
-        $page->setData([$error->getMessage(Recapcha::SESSION_ERROR)]);
+        
+        $page->setData([
+            'error_captcha' => $error->getMessage(Recapcha::SESSION_ERROR),
+            'error_login' => $error->getMessage(User::ERROR_LOGIN),
+            'data_user' => $_SESSION[User::SAVE_LOGIN]
+        ]);
+        $error->clearMessage(User::ERROR_LOGIN);
+        $error->clearMessage(Recapcha::SESSION_ERROR);
+
         $page->setRender('home.html');
     }
 
     /** Logout controller */
     public function logout()
     {
-        $page = new Page();
-        $page->setData();
-        $page->setRender('home.html');
+        if(isset($_SESSION[User::SESSION_USER])) $_SESSION[User::SESSION_USER] = NULL;
+        header("Location: /");
+        exit;
     }
 
     /** Register controller */
     public function getRegister()
     {
+        if (isset($_SESSION[User::SAVE_LOGIN])) $_SESSION[User::SAVE_LOGIN] = NULL;
+
         $error = new Error;
         $page = new Page();
 
@@ -52,6 +63,7 @@ class Web
     /** Home controller */
     public function getHome()
     {
+        User::verifyLogin();
         $page = new Page();
         $page->setRender("list.html");
     }
@@ -121,13 +133,19 @@ class Web
     /** Set login */
     public function setLogin()
     {
-
+        $user = new User();
         $captcha = new Recapcha();
+
+        $user->login($_POST['login'], $_POST['passwd']);
+
         $recaptcha = $captcha->verifyCaptcha($_POST['g-recaptcha-response']);
         if ($recaptcha !== true) {
+            Error::setSession(User::SAVE_LOGIN, ['Login' => $_POST['login'], 'Passwd' => $_POST['passwd']]);
             header("Location: /");
             exit;
         }
+
+        if (isset($_SESSION[User::SAVE_LOGIN])) $_SESSION[User::SAVE_LOGIN] = NULL;
 
         header("Location: /site/list");
         exit;

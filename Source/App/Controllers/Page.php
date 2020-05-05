@@ -6,11 +6,11 @@ use Twig\Loader\FilesystemLoader;
 class Page {
     private $filepath;
     private $loader;
-    private array $config = [
-            'cache' => 'Public/Views/page-cache',
-            'debug' => true,
-            'optimizations '=> 1];
     private array $data = [];
+    private array $config = [
+        'cache' => 'Public/Views/page-cache',
+        'debug' => true,
+        'optimizations '=> 1];
 
     public function __construct($dir =  "/Public/Views/page/")
     {   
@@ -20,12 +20,12 @@ class Page {
         $this->loader = $loader;
     }
 
-    public function setData(array $data = [])
+    public function setData(array $data = []): void
     {
         $this->data = $data;
     }
 
-    public function setRender(string $template)
+    public function setRender(string $template): void
     {
         $twig = new Environment($this->loader, $this->config);
         $load = $twig->load($template);

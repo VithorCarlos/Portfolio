@@ -62,10 +62,11 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     <span class=\"login100-form-title\">
                         LOGIN DE FUNCIONÁRIOS
                     </span>
+
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"";
-        // line 27
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["users"] ?? null), "First_name", [], "any", false, false, false, 27), "html", null, true);
+                        <input class=\"input100\" type=\"text\" name=\"login\" value=\"";
+        // line 28
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Login", [], "any", false, false, false, 28), "html", null, true);
         echo "\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
@@ -74,24 +75,36 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" name=\"senha\" placeholder=\"Senha\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"password\" name=\"passwd\" value=\"";
+        // line 36
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, ($context["data_user"] ?? null), "Passwd", [], "any", false, false, false, 36), "html", null, true);
+        echo "\" placeholder=\"Senha\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-unlock-alt\"></i>
                         </span>
                     </div>
+
+                    <div id=\"html_element\"></div>
                     ";
-        // line 41
-        if ((isset($context["failed_login"]) || array_key_exists("failed_login", $context))) {
-            // line 42
-            echo "                    <div id=\"html_element\" type=\"\"></div>
-                    <p>";
-            // line 43
-            echo twig_escape_filter($this->env, ($context["error_captcha"] ?? null), "html", null, true);
-            echo "</p>
+        // line 44
+        echo twig_escape_filter($this->env, ($context["error_captcha"] ?? null), "html", null, true);
+        echo "
+
+                    <!---->
+                    ";
+        // line 47
+        if ((isset($context["error_login"]) || array_key_exists("error_login", $context))) {
+            // line 48
+            echo "                    <!---->
+                    ";
+            // line 49
+            echo twig_escape_filter($this->env, ($context["error_login"] ?? null), "html", null, true);
+            echo "
+                    <!---->
                     ";
         }
-        // line 45
+        // line 52
         echo "
                     <div class=\"container-login100-form-btn\">
                         <button class=\"login100-form-btn\">
@@ -119,9 +132,9 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
         </div>
     </div>
     ";
-        // line 71
-        $this->loadTemplate("footer/footer.html", "home.html", 71)->display($context);
-        // line 72
+        // line 78
+        $this->loadTemplate("footer/footer.html", "home.html", 78)->display($context);
+        // line 79
         echo "</body>
 
 </html>";
@@ -139,7 +152,7 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
 
     public function getDebugInfo()
     {
-        return array (  125 => 72,  123 => 71,  95 => 45,  90 => 43,  87 => 42,  85 => 41,  68 => 27,  46 => 7,  44 => 6,  37 => 1,);
+        return array (  138 => 79,  136 => 78,  108 => 52,  102 => 49,  99 => 48,  97 => 47,  91 => 44,  80 => 36,  69 => 28,  46 => 7,  44 => 6,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -169,8 +182,9 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     <span class=\"login100-form-title\">
                         LOGIN DE FUNCIONÁRIOS
                     </span>
+
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"text\" name=\"usuario\" value=\"{{users.First_name}}\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
+                        <input class=\"input100\" type=\"text\" name=\"login\" value=\"{{data_user.Login}}\" placeholder=\"Usuário ou Email\" maxlength=\"50\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-user-shield\"></i>
@@ -178,15 +192,21 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     </div>
 
                     <div class=\"wrap-input100 validate-input\" data-validate=\"Campo Obrigatório\">
-                        <input class=\"input100\" type=\"password\" name=\"senha\" placeholder=\"Senha\" maxlength=\"15\">
+                        <input class=\"input100\" type=\"password\" name=\"passwd\" value=\"{{data_user.Passwd}}\" placeholder=\"Senha\" maxlength=\"15\">
                         <span class=\"focus-input100\"></span>
                         <span class=\"symbol-input100\">
                             <i class=\"fas fa-unlock-alt\"></i>
                         </span>
                     </div>
-                    {% if failed_login is defined %}
-                    <div id=\"html_element\" type=\"\"></div>
-                    <p>{{error_captcha}}</p>
+
+                    <div id=\"html_element\"></div>
+                    {{error_captcha}}
+
+                    <!---->
+                    {% if error_login is defined %}
+                    <!---->
+                    {{error_login}}
+                    <!---->
                     {% endif %}
 
                     <div class=\"container-login100-form-btn\">

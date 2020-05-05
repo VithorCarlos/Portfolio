@@ -36,7 +36,8 @@ class Error
     {
         if (!isset($_SESSION[$name])) {
             $_SESSION[$name] = $data;
-        } else {
+
+        } else{
             $_SESSION[$name] = $data;
         }
     }

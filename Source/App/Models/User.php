@@ -3,11 +3,15 @@
 namespace Source\App\Models;
 
 use Source\Support\Error;
+use Source\Support\Recapcha;
 
 class User extends Sql
 {
     const ERROR_REGISTER = "error_register";
+    const ERROR_LOGIN = "error_login";
     const SAVE_DATA = "data_register";
+    const SAVE_LOGIN = "data_login";
+    const SESSION_USER = "session_login";
 
     /** Function to insert into database if have not errors by user */
     public function save(): void
@@ -18,12 +22,12 @@ class User extends Sql
                 throw new \Exception("Cpf inválido! Verifique e tente novamente.");
                 die();
 
-            /** Confirm that passwords match */
+                /** Confirm that passwords match */
             } else if ($this->getPasswd() !== $this->getPasswd2()) {
                 throw new \Exception("As senhas não conferem!");
                 die();
-            
-            /** If have not errors, so insert into database all values */
+
+                /** If have not errors, so insert into database all values */
             } else {
                 $sql = new Sql();
                 $sql->query("INSERT INTO tb_employee (first_name, last_name, login, email, cpf, passwd) 
@@ -36,7 +40,7 @@ class User extends Sql
                     ':passwd' => password_hash($this->getPasswd(), PASSWORD_DEFAULT, ['cost' => 12])
                 ]);
             }
-        /** Capture all messages and set it in one session, and set all values users in one session, if have any erros */
+            /** Capture all messages and set it in one session, and set all values users in one session, if have any erros */
         } catch (\Exception $e) {
             $error = new Error();
             $error->setMessage($e->getMessage(), User::ERROR_REGISTER);
@@ -118,6 +122,46 @@ class User extends Sql
             $error->setMessage($e->getMessage(), User::ERROR_REGISTER);
             Error::setSession(User::SAVE_DATA, $this->getValues());
             header("Location: /site/register");
+            exit;
+        }
+    }
+
+    /** Validade login */
+    public function login(string $login, string $password)
+    {
+        try {
+            $sql = new Sql();
+            $result = $sql->fetch("SELECT *FROM tb_employee WHERE login =:login", [":login" => $login]);
+
+            if (count($result) < 1) {
+                throw new \Exception("Login ou senha inválidos");
+                die();
+            }
+
+            $data = $result[0];
+
+            if (password_verify($password, $data['passwd'])) {
+                $this->setValues($result[0]);
+                $_SESSION[User::SESSION_USER] = $this->getValues();
+            } else {
+                throw new \Exception("Login ou senha inválidos");
+                die();
+            }
+
+        } catch (\Exception $e) {
+            $error = new Error;
+            $error->setMessage($e->getMessage(), User::ERROR_LOGIN);
+            Error::setSession(User::SAVE_LOGIN, ['Login' => $login, 'Passwd' => $password]);
+            header("Location: /");
+            exit;
+        }
+    }
+
+    public static function verifyLogin(): void
+    {
+        if (!isset($_SESSION[User::SESSION_USER]))
+        {
+            header("Location: /");
             exit;
         }
     }

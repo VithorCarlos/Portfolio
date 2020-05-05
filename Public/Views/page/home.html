@@ -23,8 +23,9 @@
                     <span class="login100-form-title">
                         LOGIN DE FUNCIONÁRIOS
                     </span>
+
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="usuario" value="{{users.First_name}}" placeholder="Usuário ou Email" maxlength="50">
+                        <input class="input100" type="text" name="login" value="{{data_user.Login}}" placeholder="Usuário ou Email" maxlength="50">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fas fa-user-shield"></i>
@@ -32,15 +33,21 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="password" name="senha" placeholder="Senha" maxlength="15">
+                        <input class="input100" type="password" name="passwd" value="{{data_user.Passwd}}" placeholder="Senha" maxlength="15">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fas fa-unlock-alt"></i>
                         </span>
                     </div>
-                    {% if failed_login is defined %}
-                    <div id="html_element" type=""></div>
-                    <p>{{error_captcha}}</p>
+
+                    <div id="html_element"></div>
+                    {{error_captcha}}
+
+                    <!---->
+                    {% if error_login is defined %}
+                    <!---->
+                    {{error_login}}
+                    <!---->
                     {% endif %}
 
                     <div class="container-login100-form-btn">
