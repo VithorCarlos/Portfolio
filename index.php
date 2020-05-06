@@ -48,6 +48,29 @@ $app->group('/site', function () use ($app) {
 });
 /** End Site Group*/
 
+/** Forgot Group */
+$app->group('/forgot', function () use ($app) {
+
+    /** Forgot password */
+    $app->get('/', 'Source\App\Controllers\Web:getForgot');
+
+    /** Forgot sent email */
+    $app->get('/sent', 'Source\App\Controllers\Web:getSentForgot');
+
+    /** Forgot reset email */
+    $app->get('/reset', 'Source\App\Controllers\Web:getResetForgot');
+
+
+    /** Set Forgot password */
+    $app->post('/', 'Source\App\Controllers\Web:setForgot');
+
+     /** Set Forgot password */
+     $app->post('/sent', 'Source\App\Controllers\Web:setSentForgot');
+
+      /** Set Forgot password */
+    $app->post('/reset', 'Source\App\Controllers\Web:setResetForgot');
+});
+/** End Forgot Group*/
 
 $app->run();
 

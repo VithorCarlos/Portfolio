@@ -31,6 +31,7 @@ class Recapcha
                 } else 
                 {
                     throw new \Exception("Informe que você não é um robo!");
+                    return false;
                     die();
                 }
             }

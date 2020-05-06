@@ -3,7 +3,7 @@
 namespace Source\App\Models;
 
 use Source\Support\Error;
-use Source\Support\Recapcha;
+use Source\Support\Mailer;
 
 class User extends Sql
 {
@@ -11,6 +11,7 @@ class User extends Sql
     const ERROR_LOGIN = "error_login";
     const SAVE_DATA = "data_register";
     const SAVE_LOGIN = "data_login";
+    const ERROR_FORGOT = "error_forgot";
     const SESSION_USER = "session_login";
 
     /** Function to insert into database if have not errors by user */
@@ -98,7 +99,7 @@ class User extends Sql
     }
 
     /** Verify if Cpf, email and cpf exists in the database */
-    public function verifyUser()
+    public function verifyUser():void
     {
         $sql = new Sql();
         try {
@@ -127,13 +128,13 @@ class User extends Sql
     }
 
     /** Validade login */
-    public function login(string $login, string $password)
+    public function login(string $login, string $password): void
     {
         try {
             $sql = new Sql();
-            $result = $sql->fetch("SELECT *FROM tb_employee WHERE login =:login", [":login" => $login]);
+            $result = $sql->fetch("SELECT *FROM tb_employee WHERE login = :login OR email = :email", [":login" => $login, ":email" => $login]);
 
-            if (count($result) < 1) {
+            if (!count($result) > 0) {
                 throw new \Exception("Login ou senha inválidos");
                 die();
             }
@@ -157,6 +158,7 @@ class User extends Sql
         }
     }
 
+    /** Only access the routes if already logged */
     public static function verifyLogin(): void
     {
         if (!isset($_SESSION[User::SESSION_USER]))
@@ -164,5 +166,32 @@ class User extends Sql
             header("Location: /");
             exit;
         }
+    }
+
+    public function resetPassword()
+    {
+        try {
+            $sql = new Sql ();
+            $result = $sql->fetch("SELECT *FROM tb_employee WHERE email = :email", [':email' => $this->getEmail()]);
+
+            if (count($result) < 1) {
+                throw new \Exception("Email incorreto ou não cadastrado. Por favor, verifique seu Email.");
+                die();
+            }
+
+            $this->setValues($result[0]);
+
+            $mail = new Mailer();
+            $mail->attach("Public/Views/images/img-01.png", "Image");
+            $mail->add($this->getEmail(), $this->getFirst_name(), FORGOT['subjet'], FORGOT['fogort_reset']);
+            $mail->send();
+            
+        } catch (\Exception $e) {
+            $error = new Error;
+            $error->setMessage($e->getMessage(), User::ERROR_FORGOT);
+            header("Location: /forgot");
+            exit;
+        }
+        
     }
 }

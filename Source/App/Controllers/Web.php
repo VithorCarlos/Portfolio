@@ -2,8 +2,6 @@
 
 namespace Source\App\Controllers;
 
-use Source\App\Models\Model;
-
 use Source\App\Models\User;
 use Source\Support\Error;
 use Source\Support\Recapcha;
@@ -25,7 +23,7 @@ class Web
         $page->setData([
             'error_captcha' => $error->getMessage(Recapcha::SESSION_ERROR),
             'error_login' => $error->getMessage(User::ERROR_LOGIN),
-            'data_user' => $_SESSION[User::SAVE_LOGIN]
+            'data_user' => (isset($_SESSION[User::SAVE_LOGIN])) ? $_SESSION[User::SAVE_LOGIN] : NULL
         ]);
         $error->clearMessage(User::ERROR_LOGIN);
         $error->clearMessage(Recapcha::SESSION_ERROR);
@@ -52,7 +50,7 @@ class Web
         $page->setData([
             'error_captcha' => $error->getMessage(Recapcha::SESSION_ERROR),
             'error_register' => $error->getMessage(User::ERROR_REGISTER),
-            'data_user' => $_SESSION[User::SAVE_DATA]
+            'data_user' => (isset($_SESSION[User::SAVE_DATA])) ? $_SESSION[User::SAVE_DATA] : NULL
         ]);
         $error->clearMessage(User::ERROR_REGISTER);
         $error->clearMessage(Recapcha::SESSION_ERROR);
@@ -82,6 +80,22 @@ class Web
         $error = new Error;
         $page->setData([$error->getMessage(Recapcha::SESSION_ERROR)]);
         $page->setRender("errors.html");
+    }
+
+    public function getForgot()
+    {
+        $page = new Page();
+        $error = new Error();
+        $page->setData(['error_forgot' => $error->getMessage(User::ERROR_FORGOT)]);
+        $error->clearMessage(User::ERROR_FORGOT);
+
+        $page->setRender("/email/forgot.html");
+    }
+
+    public function getSentForgot()
+    {
+        $page = new Page();
+        $page->setRender("/email/forgot-sent.html");
     }
 
 
@@ -148,6 +162,18 @@ class Web
         if (isset($_SESSION[User::SAVE_LOGIN])) $_SESSION[User::SAVE_LOGIN] = NULL;
 
         header("Location: /site/list");
+        exit;
+    }
+
+    public function setForgot()
+    {
+        $user = new User();
+        $page = new Page();
+
+        $user->setValues($_POST);
+        $user->resetPassword();
+
+        header("Location: /forgot/sent");
         exit;
     }
 }

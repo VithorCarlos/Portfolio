@@ -113,11 +113,8 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     </div>
 
                     <div class=\"text-center p-t-12\">
-                        <span class=\"txt1\">
-                            Esqueceu sua
-                        </span>
-                        <a class=\"txt2\" href=\"#\">
-                            Senha ?
+                        <a class=\"txt2\" href=\"/forgot\">
+                            Esqueceu sua Senha ?
                         </a>
                     </div>
 
@@ -132,9 +129,9 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
         </div>
     </div>
     ";
-        // line 78
-        $this->loadTemplate("footer/footer.html", "home.html", 78)->display($context);
-        // line 79
+        // line 75
+        $this->loadTemplate("footer/footer.html", "home.html", 75)->display($context);
+        // line 76
         echo "</body>
 
 </html>";
@@ -152,7 +149,7 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
 
     public function getDebugInfo()
     {
-        return array (  138 => 79,  136 => 78,  108 => 52,  102 => 49,  99 => 48,  97 => 47,  91 => 44,  80 => 36,  69 => 28,  46 => 7,  44 => 6,  37 => 1,);
+        return array (  135 => 76,  133 => 75,  108 => 52,  102 => 49,  99 => 48,  97 => 47,  91 => 44,  80 => 36,  69 => 28,  46 => 7,  44 => 6,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -216,11 +213,8 @@ class __TwigTemplate_7a4b7550845ca88d0ae89d6f0561a19c7a5b43a1073096e426368ab0d28
                     </div>
 
                     <div class=\"text-center p-t-12\">
-                        <span class=\"txt1\">
-                            Esqueceu sua
-                        </span>
-                        <a class=\"txt2\" href=\"#\">
-                            Senha ?
+                        <a class=\"txt2\" href=\"/forgot\">
+                            Esqueceu sua Senha ?
                         </a>
                     </div>
 

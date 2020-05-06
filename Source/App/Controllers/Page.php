@@ -31,4 +31,11 @@ class Page {
         $load = $twig->load($template);
         echo $load->render($this->data);
     }
+
+    public function loadTemplate(string $template, array $data= []): string
+    {
+        $twig = new Environment($this->loader, $this->config);
+        $load = $twig->render($template, $data);
+        return $load;
+    }
 }

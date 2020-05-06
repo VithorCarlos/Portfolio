@@ -40,12 +40,22 @@ define("DATABASE", [
  */
 
 define("MAILER", [
-    "username" => "teste@teste.com",
-    "password" => "abc",
+    "username" => "",
+    "password" => "",
+    "name" => "Vithor Carlos",
     "host" => "smtp.gmail.com",
     "port" => 587,
     "smtp_secure" => "tls",
     "smtp_auth" => true
+]);
+
+/**
+ * FORGOT CONFIG
+ */
+
+define("FORGOT", [
+    "fogort_reset" => "http://www.linkinfoeds.com.br/forgot/reset",
+    "subjet" => "Recuperação de Senha"
 ]);
 
 /**

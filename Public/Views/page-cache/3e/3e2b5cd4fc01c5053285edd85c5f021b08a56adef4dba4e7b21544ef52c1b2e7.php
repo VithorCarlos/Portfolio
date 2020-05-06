@@ -55,7 +55,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
             <div class=\"wrap-login100\">
                 <div class=\"Iback\">
                     <a href=\"/\">
-                        <i class=\"fa fa-arrow-circle-left fa-3x\" aria-hidden=\"true\"></i>
+                        <i class=\"fa fa-arrow-circle-left fa-2x\" aria-hidden=\"true\"></i>
                     </a>
                 </div>
                 <div class=\"login100-pic js-tilt\" data-tilt>
@@ -156,10 +156,10 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
 
 
                     <div id=\"html_element\"></div>
-                    <p>";
+                    ";
         // line 97
         echo twig_escape_filter($this->env, ($context["error_captcha"] ?? null), "html", null, true);
-        echo "</p>
+        echo "
                     <div class=\"container-login100-form-btn\">
                         <button type=\"submit\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
 
@@ -214,7 +214,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
             <div class=\"wrap-login100\">
                 <div class=\"Iback\">
                     <a href=\"/\">
-                        <i class=\"fa fa-arrow-circle-left fa-3x\" aria-hidden=\"true\"></i>
+                        <i class=\"fa fa-arrow-circle-left fa-2x\" aria-hidden=\"true\"></i>
                     </a>
                 </div>
                 <div class=\"login100-pic js-tilt\" data-tilt>
@@ -292,7 +292,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
 
 
                     <div id=\"html_element\"></div>
-                    <p>{{error_captcha}}</p>
+                    {{error_captcha}}
                     <div class=\"container-login100-form-btn\">
                         <button type=\"submit\" role=\"button\" class=\"login100-form-btn\">Cadastrar</button>
 
