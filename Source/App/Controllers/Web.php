@@ -19,7 +19,7 @@ class Web
 
         $error = new Error;
         $page = new Page();
-        
+
         $page->setData([
             'error_captcha' => $error->getMessage(Recapcha::SESSION_ERROR),
             'error_login' => $error->getMessage(User::ERROR_LOGIN),
@@ -34,7 +34,7 @@ class Web
     /** Logout controller */
     public function logout()
     {
-        if(isset($_SESSION[User::SESSION_USER])) $_SESSION[User::SESSION_USER] = NULL;
+        if (isset($_SESSION[User::SESSION_USER])) $_SESSION[User::SESSION_USER] = NULL;
         header("Location: /");
         exit;
     }
@@ -82,6 +82,7 @@ class Web
         $page->setRender("errors.html");
     }
 
+    /** Forgot password controller */
     public function getForgot()
     {
         $page = new Page();
@@ -92,12 +93,35 @@ class Web
         $page->setRender("/email/forgot.html");
     }
 
+    /** Forgot reset controller */
+    public function getResetForgot()
+    {
+        $page = new Page();
+        $error = new Error();
+
+        $code = $_GET['code'];
+        $page->setData([
+            'code' => $code,
+            'error' => $error->getMessage(User::ERROR_PASSWORD)
+        ]);
+        $error->clearMessage(User::ERROR_PASSWORD);
+
+        $page->setRender("/email/forgot-reset.html");
+    }
+
+    /** Forgot sent controller */
     public function getSentForgot()
     {
         $page = new Page();
         $page->setRender("/email/forgot-sent.html");
     }
 
+    /** Forgot password recover controller */
+    public function getForgotSuccess()
+    {
+        $page = new Page();
+        $page->setRender("/email/forgot-success.html");
+    }
 
     ////////////////////////////////////////////////////////////
 
@@ -165,15 +189,39 @@ class Web
         exit;
     }
 
+    /** Send email encrypted to recover the password */
     public function setForgot()
     {
         $user = new User();
-        $page = new Page();
-
         $user->setValues($_POST);
         $user->resetPassword();
 
         header("Location: /forgot/sent");
+        exit;
+    }
+
+    /** Recover password */
+    public function setForgotReset()
+    {
+        $user = new User();
+        $error = new Error;
+
+        /** Verify if password match */
+        try {
+            if (User::passwordMatch($_POST['passwd'], $_POST['passwd2']) !== true) {
+                throw new \Exception("As senhas não coincidem");
+                die();
+            }
+        } catch (\Exception $e) {
+            $error->setMessage($e->getMessage(), User::ERROR_PASSWORD);
+            header("Location: ". FORGOT['fogort_reset'] . "?code=" . $_POST['code']);
+            exit;
+        }
+
+        /** Update password */
+        $user->decryptForgot($_POST['code'], $_POST['passwd']);
+
+        header("Location: /forgot/success");
         exit;
     }
 }

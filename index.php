@@ -60,15 +60,17 @@ $app->group('/forgot', function () use ($app) {
     /** Forgot reset email */
     $app->get('/reset', 'Source\App\Controllers\Web:getResetForgot');
 
+    /** Forgot success */
+    $app->get('/success', 'Source\App\Controllers\Web:getForgotSuccess');
 
     /** Set Forgot password */
     $app->post('/', 'Source\App\Controllers\Web:setForgot');
 
-     /** Set Forgot password */
-     $app->post('/sent', 'Source\App\Controllers\Web:setSentForgot');
+    /** Set Forgot password */
+    $app->post('/sent', 'Source\App\Controllers\Web:setSentForgot');
 
-      /** Set Forgot password */
-    $app->post('/reset', 'Source\App\Controllers\Web:setResetForgot');
+    /** Set Forgot password */
+    $app->post('/reset', 'Source\App\Controllers\Web:setForgotReset');
 });
 /** End Forgot Group*/
 

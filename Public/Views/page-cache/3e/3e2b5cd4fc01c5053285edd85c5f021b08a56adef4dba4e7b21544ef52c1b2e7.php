@@ -75,6 +75,8 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                         ";
             // line 33
             echo twig_escape_filter($this->env, ($context["error_register"] ?? null), "html", null, true);
+            echo " ";
+            echo twig_escape_filter($this->env, ($context["error_passwd"] ?? null), "html", null, true);
             echo "
                         <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                           <span aria-hidden=\"true\">&times;</span>
@@ -191,7 +193,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
 
     public function getDebugInfo()
     {
-        return array (  176 => 108,  174 => 107,  161 => 97,  133 => 72,  122 => 64,  111 => 56,  100 => 48,  89 => 40,  86 => 39,  77 => 33,  74 => 32,  72 => 31,  46 => 7,  44 => 6,  37 => 1,);
+        return array (  178 => 108,  176 => 107,  163 => 97,  135 => 72,  124 => 64,  113 => 56,  102 => 48,  91 => 40,  88 => 39,  77 => 33,  74 => 32,  72 => 31,  46 => 7,  44 => 6,  37 => 1,);
     }
 
     public function getSourceContext()
@@ -228,7 +230,7 @@ class __TwigTemplate_7c06ba125261d8a65a303c9907316a0c42931f0956af481f5020575d48c
                     <!---->
                     {% if error_register is not null and error_register is defined %}
                     <div class=\"alert alert-danger alert-dismissible fade show\" role=\"alert\">
-                        {{error_register}}
+                        {{error_register}} {{error_passwd}}
                         <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
                           <span aria-hidden=\"true\">&times;</span>
                         </button>

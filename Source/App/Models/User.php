@@ -12,6 +12,7 @@ class User extends Sql
     const SAVE_DATA = "data_register";
     const SAVE_LOGIN = "data_login";
     const ERROR_FORGOT = "error_forgot";
+    const ERROR_PASSWORD = "error_password";
     const SESSION_USER = "session_login";
 
     /** Function to insert into database if have not errors by user */
@@ -24,8 +25,8 @@ class User extends Sql
                 die();
 
                 /** Confirm that passwords match */
-            } else if ($this->getPasswd() !== $this->getPasswd2()) {
-                throw new \Exception("As senhas não conferem!");
+            } else if (User::passwordMatch($this->getPasswd(), $this->getPasswd2()) !== true) {
+                throw new \Exception("As senhas não coincidem");
                 die();
 
                 /** If have not errors, so insert into database all values */
@@ -48,6 +49,16 @@ class User extends Sql
             Error::setSession(User::SAVE_DATA, $this->getValues());
             header("Location: /site/register");
             exit;
+        }
+    }
+
+    /** To verify that the passwords match */
+    public static function passwordMatch($passwd1, $passwd2): bool
+    {
+        if ($passwd1 !== $passwd2) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -99,7 +110,7 @@ class User extends Sql
     }
 
     /** Verify if Cpf, email and cpf exists in the database */
-    public function verifyUser():void
+    public function verifyUser(): void
     {
         $sql = new Sql();
         try {
@@ -148,7 +159,6 @@ class User extends Sql
                 throw new \Exception("Login ou senha inválidos");
                 die();
             }
-
         } catch (\Exception $e) {
             $error = new Error;
             $error->setMessage($e->getMessage(), User::ERROR_LOGIN);
@@ -161,37 +171,102 @@ class User extends Sql
     /** Only access the routes if already logged */
     public static function verifyLogin(): void
     {
-        if (!isset($_SESSION[User::SESSION_USER]))
-        {
+        if (!isset($_SESSION[User::SESSION_USER])) {
             header("Location: /");
             exit;
         }
     }
 
-    public function resetPassword()
+    /** For send email with link code encrypted to recover password */
+    public function resetPassword(): User
     {
         try {
-            $sql = new Sql ();
+            $sql = new Sql();
             $result = $sql->fetch("SELECT *FROM tb_employee WHERE email = :email", [':email' => $this->getEmail()]);
 
             if (count($result) < 1) {
                 throw new \Exception("Email incorreto ou não cadastrado. Por favor, verifique seu Email.");
                 die();
+            } else {
+
+                $this->setValues($result[0]);
+
+                $result_passwd = $sql->fetch("CALL sp_employee_recover_passwd (:id_employee, :ip_user)", [
+                    ':id_employee' => $this->getId_employee(),
+                    ':ip_user' => $_SERVER['REMOTE_ADDR']
+                ]);
+
+                if (count($result_passwd) < 1) {
+                    throw new \Exception("Ocorreu um erro inesperado, por favor tente novamente!");
+                    die();
+                } else {
+
+                    $data = $result_passwd[0];
+
+                    $iv = FORGOT['secret_iv'];
+                    $key = FORGOT['secret_key'];
+                    $cripher =  FORGOT['cripher'];
+
+                    $code = openssl_encrypt($data['id_recovery'], $cripher, pack("a16", $key), 0, $iv);
+                    $code = base64_encode($code);
+
+                    if (is_string($code)) {
+                        $mail = new Mailer();
+                        $mail->attach("Public/Views/images/img-01.png", "Image");
+                        $mail->add($this->getEmail(), $this->getFirst_name(), FORGOT['subjet'], FORGOT['fogort_reset'] . "?code=" . $code);
+                        $mail->send();
+                    }
+
+                    return $this;
+                }
             }
-
-            $this->setValues($result[0]);
-
-            $mail = new Mailer();
-            $mail->attach("Public/Views/images/img-01.png", "Image");
-            $mail->add($this->getEmail(), $this->getFirst_name(), FORGOT['subjet'], FORGOT['fogort_reset']);
-            $mail->send();
-            
         } catch (\Exception $e) {
             $error = new Error;
             $error->setMessage($e->getMessage(), User::ERROR_FORGOT);
             header("Location: /forgot");
             exit;
         }
-        
+    }
+
+    /** For decrypt code sent to email and recover the password */
+    public function decryptForgot(string $code, string $password)
+    {
+        try {
+            $sql = new Sql();
+
+            $iv = FORGOT['secret_iv'];
+            $key = FORGOT['secret_key'];
+            $cripher =  FORGOT['cripher'];
+            $decode = base64_decode($code);
+
+            $value = openssl_decrypt($decode, $cripher, pack("a16", $key), 0, $iv);
+
+            $result = $sql->fetch("CALL sp_select_recover (:id_recovery)", [":id_recovery" => (int)$value]);
+
+            if (count($result) < 1) {
+                throw new \Exception("Não foi possível recuperar a senha. Por favor tente novamente!");
+                die();
+
+            } else {
+
+                $this->setValues($result[0]);
+
+                $result_passwd = $sql->fetch("CALL sp_update_password (:id_recovery, :passwd)", [
+                    ":id_recovery" => $this->getId_recovery(),
+                    ":passwd" => password_hash($password, PASSWORD_DEFAULT, ['cost' => 12])
+                ]);
+
+                if (count($result_passwd) < 1) {
+                    throw new \Exception("Não foi possível recuperar a senha. Por favor tente novamente!");
+                    die();
+                }
+            }
+
+        } catch (\Exception $e) {
+            $error = new Error;
+            $error->setMessage($e->getMessage(), User::ERROR_FORGOT);
+            header("Location: /forgot");
+            exit;
+        }
     }
 }

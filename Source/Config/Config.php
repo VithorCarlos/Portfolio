@@ -55,7 +55,10 @@ define("MAILER", [
 
 define("FORGOT", [
     "fogort_reset" => "http://www.linkinfoeds.com.br/forgot/reset",
-    "subjet" => "Recuperação de Senha"
+    "subjet" => "Recuperação de Senha",
+    "cripher" => "AES-128-CBC",
+    "secret_key" => "#H5>Ee;`|#+|zj?hgqyK7ZYi.LM/]&O`Q%R%'P$*WtIMl1Bz/wn@)`WFTrv+_3a",
+    "secret_iv" => "24D93D6D56E92FDA"
 ]);
 
 /**
