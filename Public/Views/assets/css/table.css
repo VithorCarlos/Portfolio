@@ -355,6 +355,26 @@ border-radius: 15px;
             font-size: 22px;
         }
         
+        .fa-eye {
+            font-size: 22px;
+        }
+        
+        .fa-trash {
+            font-size: 22px;
+        }
+        
+        .eyeClass {
+            padding: 10px;
+        }
+        
+        .trashClass {
+            padding: 10px;
+        }
+        
+        .editClass {
+            padding: 10px;
+        }
+        
         .table,
         .row {
             width: 100% !important;

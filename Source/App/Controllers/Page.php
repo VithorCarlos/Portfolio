@@ -12,6 +12,7 @@ class Page {
         'debug' => true,
         'optimizations '=> 1];
 
+    /** Initial config to execute template */
     public function __construct($dir =  "/Public/Views/page/")
     {   
         $filepath = $_SERVER['DOCUMENT_ROOT'] . $dir; 
@@ -20,19 +21,23 @@ class Page {
         $this->loader = $loader;
     }
 
-    public function setData(array $data = []): void
+    /** Set all the data that will be displayed in the template later */
+    public function setData(array $data = []): array
     {
-        $this->data = $data;
+        return $this->data = $data;
     }
 
-    public function setRender(string $template): void
+    /** Render template HTML */
+    public function setRender(string $template): Page
     {
         $twig = new Environment($this->loader, $this->config);
         $load = $twig->load($template);
         echo $load->render($this->data);
+        return $this;
     }
 
-    public function loadTemplate(string $template, array $data= []): string
+    /** For renderize templates to send emails with PHPMailer*/
+    public function mailerTemplate(string $template, array $data = []): string
     {
         $twig = new Environment($this->loader, $this->config);
         $load = $twig->render($template, $data);

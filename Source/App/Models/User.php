@@ -13,34 +13,44 @@ class User extends Sql
     const SAVE_LOGIN = "data_login";
     const ERROR_FORGOT = "error_forgot";
     const ERROR_PASSWORD = "error_password";
-    const SESSION_USER = "session_login";
+    const SESSION_USER = "session_user";
 
     /** Function to insert into database if have not errors by user */
-    public function save(): void
+    public function save(): User
     {
         try {
             /** Confirm if cpf is valid */
             if (User::isCpf($this->getCpf()) !== true) {
                 throw new \Exception("Cpf inválido! Verifique e tente novamente.");
                 die();
-
+                /** Confirm if user exists */
+            } elseif ($this->verifyUser() !== true) {
+                die();
                 /** Confirm that passwords match */
-            } else if (User::passwordMatch($this->getPasswd(), $this->getPasswd2()) !== true) {
+            } elseif (User::passwordMatch($this->getPasswd(), $this->getPasswd2()) !== true) {
                 throw new \Exception("As senhas não coincidem");
                 die();
-
                 /** If have not errors, so insert into database all values */
             } else {
                 $sql = new Sql();
-                $sql->query("INSERT INTO tb_employee (first_name, last_name, login, email, cpf, passwd) 
-                 VALUES (:first_name, :last_name, :login, :email, :cpf, :passwd)", [
-                    ':first_name' => utf8_decode($this->getFirst_name()),
-                    ':last_name' => utf8_decode($this->getLast_name()),
-                    ':login' => $this->getLogin(),
-                    ':email' => $this->getEmail(),
-                    ':cpf' => preg_replace('/[^0-9]/', '', $this->getCpf()),
-                    ':passwd' => password_hash($this->getPasswd(), PASSWORD_DEFAULT, ['cost' => 12])
-                ]);
+                $result = $sql->fetch(
+                    "CALL sp_insert_employee(:first_name, :last_name, :login, :email, :cpf, :passwd)",
+                    [
+                        ':first_name' => utf8_decode($this->getFirst_name()),
+                        ':last_name' => utf8_decode($this->getLast_name()),
+                        ':login' => $this->getLogin(),
+                        ':email' => $this->getEmail(),
+                        ':cpf' => preg_replace('/[^0-9]/', '', $this->getCpf()),
+                        ':passwd' => password_hash($this->getPasswd(), PASSWORD_DEFAULT, ['cost' => 12])
+                    ]
+                );
+
+                if (count($result) < 1) {
+                    throw new \Exception("Houve algum erro desconhecido durante sua solicitação. Por favor, tente novamente!");
+                    die();
+                }
+
+                return $this;
             }
             /** Capture all messages and set it in one session, and set all values users in one session, if have any erros */
         } catch (\Exception $e) {
@@ -110,36 +120,33 @@ class User extends Sql
     }
 
     /** Verify if Cpf, email and cpf exists in the database */
-    public function verifyUser(): void
+    public function verifyUser(): bool
     {
         $sql = new Sql();
-        try {
-            $result = $sql->fetch("SELECT *FROM tb_employee");
 
-            foreach ($result as $value) {
-                if ($value['login'] == $this->getLogin()) {
-                    throw new \Exception("Usuário já cadastrado!");
-                    die();
-                } else if ($value['email'] == $this->getEmail()) {
-                    throw new \Exception("Email já cadastrado!");
-                    die();
-                } else if ($value['cpf'] == preg_replace('/[^0-9]/', '', $this->getCpf())) {
-                    throw new \Exception("Cpf já cadastrado!");
-                    die();
-                }
+        $result = $sql->fetch("SELECT *FROM tb_employee");
+
+        foreach ($result as $value) {
+            if ($value['login'] === $this->getLogin()) {
+                throw new \Exception("Usuário já cadastrado!");
+                return false;
+                die();
+            } elseif ($value['email'] === $this->getEmail()) {
+                throw new \Exception("Email já cadastrado!");
+                return false;
+                die();
+            } elseif ($value['cpf'] === preg_replace('/[^0-9]/', '', $this->getCpf())) {
+                throw new \Exception("Cpf já cadastrado!");
+                return false;
+                die();
+            } else {
+                return true;
             }
-            /** Capture all erros and set in one session */
-        } catch (\Exception $e) {
-            $error = new Error;
-            $error->setMessage($e->getMessage(), User::ERROR_REGISTER);
-            Error::setSession(User::SAVE_DATA, $this->getValues());
-            header("Location: /site/register");
-            exit;
         }
     }
 
     /** Validade login */
-    public function login(string $login, string $password): void
+    public function login(string $login, string $password): User
     {
         try {
             $sql = new Sql();
@@ -155,6 +162,7 @@ class User extends Sql
             if (password_verify($password, $data['passwd'])) {
                 $this->setValues($result[0]);
                 $_SESSION[User::SESSION_USER] = $this->getValues();
+                return $this;
             } else {
                 throw new \Exception("Login ou senha inválidos");
                 die();
@@ -191,16 +199,18 @@ class User extends Sql
 
                 $this->setValues($result[0]);
 
-                $result_passwd = $sql->fetch("CALL sp_employee_recover_passwd (:id_employee, :ip_user)", [
-                    ':id_employee' => $this->getId_employee(),
-                    ':ip_user' => $_SERVER['REMOTE_ADDR']
-                ]);
+                $result_passwd = $sql->fetch(
+                    "CALL sp_employee_recover_passwd(:id_employee, :ip_user)",
+                    [
+                        ':id_employee' => $this->getId_employee(),
+                        ':ip_user' => $_SERVER['REMOTE_ADDR']
+                    ]
+                );
 
                 if (count($result_passwd) < 1) {
                     throw new \Exception("Ocorreu um erro inesperado, por favor tente novamente!");
                     die();
                 } else {
-
                     $data = $result_passwd[0];
 
                     $iv = FORGOT['secret_iv'];
@@ -241,31 +251,66 @@ class User extends Sql
 
             $value = openssl_decrypt($decode, $cripher, pack("a16", $key), 0, $iv);
 
-            $result = $sql->fetch("CALL sp_select_recover (:id_recovery)", [":id_recovery" => (int)$value]);
+            $result = $sql->fetch("CALL sp_select_recover(:id_recovery)", [":id_recovery" => (int) $value]);
 
             if (count($result) < 1) {
                 throw new \Exception("Não foi possível recuperar a senha. Por favor tente novamente!");
                 die();
-
             } else {
 
                 $this->setValues($result[0]);
 
-                $result_passwd = $sql->fetch("CALL sp_update_password (:id_recovery, :passwd)", [
-                    ":id_recovery" => $this->getId_recovery(),
-                    ":passwd" => password_hash($password, PASSWORD_DEFAULT, ['cost' => 12])
-                ]);
+                $result_passwd = $sql->fetch(
+                    "CALL sp_update_password(:id_recovery, :passwd)",
+                    [
+                        ":id_recovery" => $this->getId_recovery(),
+                        ":passwd" => password_hash($password, PASSWORD_DEFAULT, ['cost' => 12])
+                    ]
+                );
 
                 if (count($result_passwd) < 1) {
                     throw new \Exception("Não foi possível recuperar a senha. Por favor tente novamente!");
                     die();
                 }
             }
-
         } catch (\Exception $e) {
             $error = new Error;
             $error->setMessage($e->getMessage(), User::ERROR_FORGOT);
             header("Location: /forgot");
+            exit;
+        }
+    }
+
+
+    /**  */
+
+    public function updateUser(): array
+    {
+        try {
+            $sql = new Sql();
+            $result = $sql->fetch(
+                "CALL sp_update_employee(:id_employee, :first_name, :last_name, :login, :email, :cpf)",
+                [
+                    ':id_employee' => $this->getId_employee(),
+                    ':first_name' => $this->getFirst_name(),
+                    ':last_name' => $this->getLast_name(),
+                    ':login' => $this->getLogin(),
+                    ':email' => $this->getEmail(),
+                    ':cpf' => preg_replace('/[^0-9]/', '', $this->getCpf())
+                ]
+            );
+
+            /** If have another error unexpected*/
+            if (count($result) < 1) {
+                throw new \Exception("Ocorreu um erro inesperado. Por favor, tente novamente!");
+                die();
+            } else {
+                return  $result;
+            }
+        } catch (\Exception $e) {
+            $error = new Error;
+            $error->setMessage($e->getMessage(), User::ERROR_REGISTER);
+            header("Location: /site/my-profile");
             exit;
         }
     }

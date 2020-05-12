@@ -48,7 +48,7 @@ class Mailer
         return $this;
     }
 
-    public function add(string $toEmail, string $toName, string $subject, string $link): void
+    public function add(string $toEmail, string $toName, string $subject, string $link): Mailer
     {
         try {    
             $this->mail->setFrom(MAILER['username'], MAILER['name']);
@@ -57,7 +57,7 @@ class Mailer
 
             $this->mail->Subject = utf8_decode($subject);
 
-            $this->mail->msgHTML(utf8_decode($this->page->loadTemplate('email/forgot-body.html', ['link' => $link])));
+            $this->mail->msgHTML(utf8_decode($this->page->mailerTemplate('email/forgot-body.html', ['link' => $link])));
 
             $this->mail->isHTML(true); 
 
@@ -66,6 +66,8 @@ class Mailer
                     $this->mail->addAttachment($path, $name);
                 }
             }
+
+            return $this;
 
         } catch (\Exception $e) {
             $error = new Error;

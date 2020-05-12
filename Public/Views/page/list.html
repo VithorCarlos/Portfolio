@@ -56,9 +56,9 @@
                         <div class='cell'>
                             SOLUÇÃO
                         </div>
-                        <div class='cell'>
+                        <!--<div class='cell'>
                             DATA
-                        </div>
+                        </div>-->
                         <div class='cell'>
                             SISTEMA
                         </div>
@@ -66,35 +66,95 @@
                             <i class='fas fa-tools'></i>
                         </div>
                     </div>
-
+                    <!---->
+                    {% for list in list_all %}
                     <div class='row'>
-                        <div class='cell cell2' data-title='Clientes'>
-
+                        <div class='cell cell2' data-title='Cliente'>
+                            {{list.client_name|e}}
                         </div>
+
                         <div class='cell cell2' data-title='Erro'>
-
+                            {{list.type_error|e}}
                         </div>
 
-
-                        <div class='cell cell2' data-title=Solução style='text-align: justify;'>
-
+                        <div class='cell cell2' data-title=Solução style='text-align: justify'>
+                            {{list.solution|e}}
                         </div>
 
-                        <div class='cell cell2' data-title='Data'>
-                        </div>
+                        <!-- <div class='cell cell2' data-title='Data'>
+                        </div>-->
                         <div class='cell cell2' data-title='Sistema'>
+                            {{list.system_used|e}}
                         </div>
-                        <div class='cell cell2' data-title='Sistema'>
-                            <a href=''><i class='fas fa-edit'></i></a>
+
+                        <div class='cell cell2' data-title='settings'>
+                            <a class="eyeClass" href='/site/detail-error/{{list.id_error}}' data-toggle="modal" data-target="#siteModal"><i class="fas fa-eye"></i></a>
+                            <a class="editClass" href=''><i class='fas fa-edit'></i></a>
+                            <a class="trashClass" href='/site/delete-error/{{list.id_error}}' onclick="confirm('Tem certeza que deseja excluir este registro?');"><i class='fas fa-trash'></i></a>
                         </div>
                     </div>
-
+                    {% endfor %}
                     <!--Final Conteúdo-->
                 </div>
             </div>
         </div>
-    </div>
-    {% include 'footer/footer.html' %}
+        <!-- Modal -->
+        <div class="modal fade" id="siteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <!--Modal Header-->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--End Header-->
+
+                    <!--Modal Body-->
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <h4>Cliente</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.client_name|e}}</div>
+
+                            <h4>Razão Social</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.company_name|e}}</div>
+
+                            <h4>Nome Fantasia</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.fantasy_name|e}}</div>
+
+                            <h4>CPNJ</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.cpnj|e}}</div>
+
+                            <h4>Erro</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.type_error|e}}</div>
+
+                            <h4>Solução</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.solution|e}}</div>
+
+                            <h4>Sistema</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.system_used|e}}</div>
+
+                            <h4>Data de ocorrência</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.occurrence_date|e}}</div>
+
+                            <h4>Funcionário que efetuou o registo</h4>
+                            <div class="col-md-12 ml-auto">{{list_id.first_name|e}} {{list_id.last_name|e}}</div>
+                        </div>
+                    </div>
+                    <!--End Body-->
+
+                    <!--Modal Footer-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    </div>
+                    <!--End Footer-->
+                </div>
+            </div>
+        </div>
+        <!--EndModal-->
+
+        {% include 'footer/footer.html' %}
 </body>
 
 </html>

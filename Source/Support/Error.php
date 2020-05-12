@@ -17,7 +17,6 @@ class Error
     /** Set message in session */
     public function setMessage(string $msg, string $name): void
     {
-
         if (!isset($_SESSION[$name]) || !$_SESSION[$name]) {
             $_SESSION[$name] = $msg;
         }

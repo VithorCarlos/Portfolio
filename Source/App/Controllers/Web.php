@@ -2,6 +2,7 @@
 
 namespace Source\App\Controllers;
 
+use Source\App\Models\Client;
 use Source\App\Models\User;
 use Source\Support\Error;
 use Source\Support\Recapcha;
@@ -62,23 +63,65 @@ class Web
     public function getHome()
     {
         User::verifyLogin();
+        if (isset($_SESSION[Client::SAVE_DATA])) $_SESSION[Client::SAVE_DATA] = NULL;
         $page = new Page();
+        $client = new Client();
+
+        $client->setValues($client->getList());
+
+        $page->setData([
+            "list_all" => $client->getList(),
+            //"list_id" =>  $data[0]
+        ]);
+
         $page->setRender("list.html");
+    }
+
+    
+    public function getDetailError($iderror)
+    {
+        $client = new Client();
+
+        $client->setValues($iderror);
+
+        header("Location: /site/list");
+        exit;
     }
 
     /** Profile controller */
     public function getProfile()
     {
+        User::verifyLogin();
+
+        if (isset($_SESSION[Client::SAVE_DATA])) $_SESSION[Client::SAVE_DATA] = NULL;
+
         $page = new Page();
+        $error = new Error();
+
+        $page->setData([
+            "data_user" => (isset($_SESSION[User::SESSION_USER])) ? $_SESSION[User::SESSION_USER] : NULL,
+            "error_update" => $error->getMessage(User::ERROR_REGISTER)
+        ]);
+        $error->clearMessage(User::ERROR_REGISTER);
+
         $page->setRender("profile.html");
     }
 
     /** Register error controller */
     public function getRegisterError()
     {
+        User::verifyLogin();
         $page = new Page();
         $error = new Error;
-        $page->setData([$error->getMessage(Recapcha::SESSION_ERROR)]);
+
+        $page->setData([
+            "client_error" => $error->getMessage(Client::ERROR_REGISTER),
+            "error_captcha" => $error->getMessage(Recapcha::SESSION_ERROR),
+            "data_client" => (isset($_SESSION[Client::SAVE_DATA])) ? $_SESSION[Client::SAVE_DATA] : NULL
+        ]);
+        $error->clearMessage(Client::ERROR_REGISTER);
+        $error->clearMessage(Recapcha::SESSION_ERROR);
+
         $page->setRender("errors.html");
     }
 
@@ -123,6 +166,17 @@ class Web
         $page->setRender("/email/forgot-success.html");
     }
 
+    public function getDeleteError($iderror)
+    {
+        $client = new Client();
+
+        $client->delete($iderror);
+
+        header("Location: /site/list");
+        exit;
+    }
+
+
     ////////////////////////////////////////////////////////////
 
     /**
@@ -136,7 +190,6 @@ class Web
         $captcha = new Recapcha();
 
         $user->setValues($_POST);
-        $user->verifyUser();
 
         $recaptcha = $captcha->verifyCaptcha($_POST['g-recaptcha-response']);
 
@@ -158,8 +211,18 @@ class Web
     public function setRegisterError()
     {
         $captcha = new Recapcha();
+        $client = new Client();
+        $client->setValues($_POST);
+
+        $client->setValues(['Id_employee' => (int) $_SESSION[User::SESSION_USER]['Id_employee']]);
+
+        if (!empty($_POST)) {
+            $client->save();
+        }
+
         $recaptcha = $captcha->verifyCaptcha($_POST['g-recaptcha-response']);
         if ($recaptcha !== true) {
+            Error::setSession(Client::SAVE_DATA, $client->getValues());
             header("Location: /site/register-error");
             exit;
         }
@@ -214,7 +277,7 @@ class Web
             }
         } catch (\Exception $e) {
             $error->setMessage($e->getMessage(), User::ERROR_PASSWORD);
-            header("Location: ". FORGOT['fogort_reset'] . "?code=" . $_POST['code']);
+            header("Location: " . FORGOT['fogort_reset'] . "?code=" . $_POST['code']);
             exit;
         }
 
@@ -222,6 +285,20 @@ class Web
         $user->decryptForgot($_POST['code'], $_POST['passwd']);
 
         header("Location: /forgot/success");
+        exit;
+    }
+
+    public function setProfile()
+    {
+        $user = new User();
+        $user->setValues($_POST);
+
+        if ($user->updateUser()) {
+            /** For update the session, when data has been updated */
+            Error::setSession(User::SESSION_USER, $user->getValues());
+        }
+
+        header("Location: /site/list");
         exit;
     }
 }

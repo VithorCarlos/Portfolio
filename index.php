@@ -37,14 +37,20 @@ $app->group('/site', function () use ($app) {
     /** Register error client */
     $app->get('/register-error', 'Source\App\Controllers\Web:getRegisterError');
 
-    /** Save error */
-    $app->post('/register-error', 'Source\App\Controllers\Web:setRegisterError');
-
     /** Edit error client */
     $app->get('/edit-error', 'Source\App\Controllers\Web:getEditError');
 
+    /** View error client */
+    $app->get('/detail-error/:iderror', 'Source\App\Controllers\Web:getDetailError');
+
     /** Delete error client */
-    $app->delete('/edit-error/:iderror/:idclient', 'Source\App\Controllers\Web:getDeleteError');
+    $app->get('/delete-error/:iderror', 'Source\App\Controllers\Web:getDeleteError');
+
+    /** Save error */
+    $app->post('/register-error', 'Source\App\Controllers\Web:setRegisterError');
+
+    /** Save Profile */
+    $app->post('/my-profile', 'Source\App\Controllers\Web:setProfile');
 });
 /** End Site Group*/
 

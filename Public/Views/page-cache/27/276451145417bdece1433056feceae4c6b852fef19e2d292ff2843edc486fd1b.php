@@ -35,7 +35,7 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
         $macros = $this->macros;
         // line 1
         echo "<!--===============================================================================================-->
-<script src=\"/Resources/jquery/jquery-3.2.1.min.js\"></script>
+<script src=\"/Resources/jquery/jquery-3.5.1.min.js\"></script>
 <script src=\"/Resources/jquery/validate.js\"></script>
 <!--===============================================================================================-->
 <script src=\"/Resources/bootstrap/js/popper.js\"></script>
@@ -45,9 +45,10 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
 <!--===============================================================================================-->
 <script src=\"/Resources/tilt/tilt.jquery.min.js\"></script>
 <script src=\"/Resources/js/validarcpf.js\"></script>
+<script src=\"/Public/Views/assets/js/mask.js\"></script>
 <script src=\"/Public/Views/assets/js/main.js\"></script>
 <script src=\"/Public/Views/assets/js/onlyNumbers.js\"></script>
-<script src=\"/Public/Views/assets/js/mask.js\"></script>
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js\"></script>
 <script>
     \$('.js-tilt').tilt({
         scale: 1.1
@@ -71,7 +72,7 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
     public function getSourceContext()
     {
         return new Source("<!--===============================================================================================-->
-<script src=\"/Resources/jquery/jquery-3.2.1.min.js\"></script>
+<script src=\"/Resources/jquery/jquery-3.5.1.min.js\"></script>
 <script src=\"/Resources/jquery/validate.js\"></script>
 <!--===============================================================================================-->
 <script src=\"/Resources/bootstrap/js/popper.js\"></script>
@@ -81,9 +82,10 @@ class __TwigTemplate_4ccab00e3292cb4ff9232f5a2c31d326954ede6cc587e06b5c55e6da9d4
 <!--===============================================================================================-->
 <script src=\"/Resources/tilt/tilt.jquery.min.js\"></script>
 <script src=\"/Resources/js/validarcpf.js\"></script>
+<script src=\"/Public/Views/assets/js/mask.js\"></script>
 <script src=\"/Public/Views/assets/js/main.js\"></script>
 <script src=\"/Public/Views/assets/js/onlyNumbers.js\"></script>
-<script src=\"/Public/Views/assets/js/mask.js\"></script>
+<script src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js\"></script>
 <script>
     \$('.js-tilt').tilt({
         scale: 1.1

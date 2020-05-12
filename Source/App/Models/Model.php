@@ -6,7 +6,7 @@ class Model
 {
    private array $data = [];
 
-    public function __call(string $name, $arguments)
+    public function __call(string $name, array $arguments)
     {
         /** For method get or set */
         $method = substr($name, 0, 3);

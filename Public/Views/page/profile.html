@@ -24,13 +24,24 @@
                     <img src="/Public/Views/images/img-01.png" alt="IMG">
                 </div>
 
-                <form name="formcadastro" class="login100-form validate-form" action="updateDados.php" method="POST">
+                <form name="formcadastro" class="login100-form validate-form" action="/site/my-profile" method="POST">
                     <span class="login100-form-title">
                         MINHAS INFORMAÇÕES
                     </span>
+                    <!---->
+                    {% if error_update is not null and error_update is defined %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{error_update}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
+
+                    <input type="hidden" name="id_employee" value="{{data_user.Id_employee}}">
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="nome_funcionario" readonly placeholder="Nome completo" onkeyup="this.value=this.value.toUpperCase();" minlength="20" maxlength="100" value="">
+                        <input class="input100" type="text" name="first_name" value="{{data_user.First_name}}" placeholder="Nome" onkeyup="this.value=this.value.toUpperCase();" maxlength="100">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fas fa-id-badge"></i>
@@ -38,7 +49,7 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="usuario" readonly placeholder="Usuário" maxlength="12" value="">
+                        <input class="input100" type="text" name="last_name" value="{{data_user.Last_name}}" placeholder="Sobrenome" maxlength="100" onkeyup="this.value=this.value.toUpperCase();">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-user" aria-hidden="true"></i>
@@ -46,24 +57,32 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="email" name="email" readonly placeholder="Email" value="" readonly pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="50">
+                        <input class="input100" type="text" name="login" value="{{data_user.Login}}" placeholder="Usuário" maxlength="50">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fas fa-user-lock"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
+                        <input class="input100" type="email" name="email" placeholder="Email" value="{{data_user.Email}}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" maxlength="100">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
                         </span>
                     </div>
 
-                    <!-- <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" id="senha" name="senha" placeholder="Senha" pattern=".{8,}" title="8 a 15 Caracteres." maxlength="15">
+                    <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
+                        <input class="input100" type="text" id="cpf" name="cpf" placeholder="CPF" value="{{data_user.Cpf}}" onclick="$(this).mask('000.000.000-00')" onkeyup="onlyNumbers(this);" minlength="14" maxlength="14">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
-                            <i class="fa fa-lock" aria-hidden="true"></i>
+                            <i class="fas fa-shield-alt"></i>
                         </span>
-                    </div> -->
+                    </div>
 
-                    <!-- <div class="container-login100-form-btn">
-                        <button type="submit" role="button" class="login100-form-btn">Alterar</button>                        
-                    </div>-->
+                    <div class="container-login100-form-btn">
+                        <button type="submit" role="button" class="login100-form-btn">Alterar</button>
+                    </div>
                 </form>
             </div>
         </div>

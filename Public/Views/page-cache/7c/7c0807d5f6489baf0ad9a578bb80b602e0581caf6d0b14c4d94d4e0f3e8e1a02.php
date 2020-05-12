@@ -56,8 +56,7 @@ class __TwigTemplate_c2be53ff2ca7547f5b006816fcaeab9d25f78096a9a0e992e07ca6f5ae2
             'sitekey': '6LetVvEUAAAAAE3fjoTtcJEXwyCUn8Er5UDDGWmg'
         });
     };
-</script>
- ";
+</script>";
     }
 
     public function getTemplateName()
@@ -94,7 +93,6 @@ class __TwigTemplate_c2be53ff2ca7547f5b006816fcaeab9d25f78096a9a0e992e07ca6f5ae2
             'sitekey': '6LetVvEUAAAAAE3fjoTtcJEXwyCUn8Er5UDDGWmg'
         });
     };
-</script>
- ", "header/header.html", "C:\\xampp\\htdocs\\ProjetoInfoeds\\Public\\Views\\page\\header\\header.html");
+</script>", "header/header.html", "C:\\xampp\\htdocs\\ProjetoInfoeds\\Public\\Views\\page\\header\\header.html");
     }
 }

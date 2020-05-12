@@ -27,17 +27,42 @@
                     <span class="login100-form-title">
                         CADASTRO DE ERROS
                     </span>
+                    <!---->
+                    {% if client_error is not null and client_error is defined %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{client_error}}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    {% endif %}
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="nome_cliente" onkeyup="this.value=this.value.toUpperCase();" placeholder="CLIENTE" maxlength="50">
+                        <input class="input100" type="text" name="client_name" value="{{data_client.Client_name}}" onkeyup="this.value=this.value.toUpperCase();" placeholder="CLIENTE" maxlength="50">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-users" aria-hidden="true"></i>
                         </span>
                     </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
+                        <input class="input100" type="text" name="company_name" value="{{data_client.Company_name}}" onkeyup="this.value=this.value.toUpperCase();" placeholder="RAZÃO SOCIAL" maxlength="50">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="far fa-building"></i>
+                        </span>
+                    </div>
+
                     <div class="wrap-input100" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="cnpj" placeholder="CNPJ" onkeyup="somenteNumeros(this);" maxlength="14">
+                        <input class="input100" type="text" name="fantasy_name" value="{{data_client.Fantasy_name}}" onkeyup="this.value=this.value.toUpperCase();" placeholder="NOME FANTASIA" maxlength="50">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fas fa-file-signature"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
+                        <input class="input100" type="text" name="cnpj" placeholder="CNPJ" value="{{data_client.Cnpj}}" onkeyup="somenteNumeros(this);" maxlength="14">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fas fa-address-card"></i>
@@ -45,15 +70,7 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" name="tipo_erro" placeholder="ERRO OCORRIDO" maxlength="150">
-                        <span class="focus-input100"></span>
-                        <span class="symbol-input100">
-                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-                        </span>
-                    </div>
-
-                    <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <input class="input100" type="text" id="sistema" onkeyup="this.value=this.value.toUpperCase();" name="sistema" placeholder="SISTEMA UTILIZADO" maxlength="20">
+                        <input class="input100" type="text" id="system_used" name="system_used" value="{{data_client.System_used}}" placeholder="SISTEMA UTILIZADO" onkeyup="this.value=this.value.toUpperCase();" maxlength="20">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-desktop" aria-hidden="true"></i>
@@ -61,15 +78,23 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
+                        <input class="input100" type="text" name="type_error" value="{{data_client.Type_error}}" placeholder="ERRO OCORRIDO" maxlength="150">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <!--<div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
                         <input class="input100" type="date" id="dataClass" name="data_ocorrencia" placeholder="DATA DE OCORRÊNCIA">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                         </span>
-                    </div>
+                    </div>-->
 
                     <div class="wrap-input100 validate-input" data-validate="Campo Obrigatório">
-                        <textarea class="input100" id="solucaoClass" name="solucao" rows="5" cols="30" placeholder="SOLUÇÃO ENCONTRADA PARA O PROBLEMA"></textarea>
+                        <textarea class="input100" id="solucaoClass" name="solution" rows="5" cols="30" placeholder="SOLUÇÃO ENCONTRADA">{{data_client.Solution}}</textarea>
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-check-circle" aria-hidden="true"></i>
@@ -80,7 +105,7 @@
                     <p>{{error_captcha}}</p>
 
                     <div class="container-login100-form-btn">
-                        <button type="submit" name="registrar_erros" role="button" class="login100-form-btn">Registrar</button>
+                        <button type="submit" role="button" class="login100-form-btn">Registrar</button>
 
                         <button class="login200-form-btn" type="reset">Limpar</button>
                     </div>
